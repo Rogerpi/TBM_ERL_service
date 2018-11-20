@@ -1,0 +1,21 @@
+<launch>
+    <arg name="launch_semantic" default=false/>
+    <arg name="map_tf" default=true/>
+
+    <arg name="launch_alexa_parser" default=false/>
+
+    <group if="$(arg launch_semantic)">
+      <include file="$(find robot_map)/launch/semantic_map.launch" arg="" /> <!-- TODO set args map_tf-->
+    </group>
+
+    <group if="$(arg launch_alexa_parser)">
+      <node pkg="robot_map" type="alexa_commands.py" name="alexa_parser" args="" output="screen">
+    </group>
+
+    <node pkg="tbm" type="tbm1.py" name="tbm1" args="" output="screen">
+        <!--<remap from="/camera_info" to="/stereo/$(arg eye)/camera_info" />-->
+        <!--<param name="image_is_rectified" value="True"/>-->
+
+    </node>
+
+</launch>
